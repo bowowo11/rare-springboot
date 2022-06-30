@@ -10,11 +10,22 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UsrMapper {
-
+   //通过用户名查询密码
    String findPswByName(String name);
-
+   //通过ID查询用户名
+   @SuppressWarnings("AlibabaCommentsMustBeJavadocFormat")
    String getIdByName(String name);
-
+   //通过ID查询用户名
    Usr getUsrByID(int ID);
+
+   //通过ID查昵称
+   String getNicknameByID(int ID);
+
+   //通过ID查宝石
+   int getCrystalByID(int ID);
+
+   //通过ID查
+   String getCardlistByID(int ID);
+
 
 }
