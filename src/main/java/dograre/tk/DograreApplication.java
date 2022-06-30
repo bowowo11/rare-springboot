@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class DograreApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(DograreApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(DograreApplication.class, args);
+    }
 
 }
