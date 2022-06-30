@@ -20,7 +20,7 @@ public class APIController {
 
     public APIController() {
     }
-
+    //登录的api
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> data, HttpServletResponse response) {
         String username = data.get("username");
@@ -42,6 +42,7 @@ public class APIController {
         return responseJson;
     }
 
+    //根据session 获取用户
     @GetMapping("/usr")
     public Usr getUsr(@CookieValue(name = "session_id") String sessionID, HttpServletResponse response) {
         Usr res = usrMapper.getUsrByID(sessionID);
@@ -50,16 +51,20 @@ public class APIController {
         return null;
     }
 
+    //用于注册时检验用户名是否唯一的api
     @PostMapping("/checkname")
     public String checkname(@RequestBody Map<String,String> data){
         if(usrMapper.getIdByName(data.get("name"))!=null)  return "{\"status\": \"bad\", \"errMsg\": \"用户名已存在\"}";
          return "{\"status\": \"good\", \"errMsg\": \"用户名可用\"}";
     }
 
+    //注册请求的api
     @PostMapping("/sign")
     public boolean sign(@RequestBody Map<String,String> data,HttpServletResponse response){
         return true;
     }
+
+
 
     @RequestMapping("/test")
     public boolean test() {
