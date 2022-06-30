@@ -8,6 +8,12 @@ public class Usr {
     private String nickname;
     private String cardlist;
 
+    public Usr(String usrname, String pwd, String nickname) {
+        this.usrname = usrname;
+        this.pwd = pwd;
+        this.nickname = nickname;
+    }
+
     public int getID() {
         return ID;
     }

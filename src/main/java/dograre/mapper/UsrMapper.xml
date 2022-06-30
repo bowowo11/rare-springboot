@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="dograre.mapper.UsrMapper">
-
     <select id="findPswByName" resultType="java.lang.String">
         select pwd from usr where usrname = #{name}
     </select>
@@ -14,6 +13,16 @@
     <select id="getUsrByID" resultType="dograre.entity.Usr">
         select * from usr where ID = #{ID}
     </select>
+
+    <insert id="insertUsr" parameterType="dograre.entity.Usr">
+        INSERT INTO usr
+        (usrname,pwd,nickname)
+        VALUES (
+        #{usrname, jdbcType=VARCHAR},
+        #{pwd, jdbcType=VARCHAR},
+        #{nickname, jdbcType=VARCHAR})
+    </insert>
+
 
     <select id="getNicknameByID"  resultType="java.lang.String">
         select nickname from usr where ID = #{ID}

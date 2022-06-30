@@ -3,10 +3,8 @@ package dograre.controller;
 import dograre.entity.Usr;
 import dograre.mapper.UsrMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -44,12 +42,29 @@ public class APIController {
         return responseJson;
     }
 
-    @RequestMapping("/test")
-    public Usr test() {
-        return usrMapper.getUsrByID(1);
+    @GetMapping("/usr")
+    public Usr getUsr(@CookieValue(name = "session_id") String sessionID, HttpServletResponse response) {
+        Usr res = usrMapper.getUsrByID(sessionID);
+        if (res != null) return res;
+        response.setStatus(HttpStatus.FORBIDDEN.value());
+        return null;
     }
 
+    @PostMapping("/checkname")
+    public String checkname(@RequestBody Map<String,String> data){
+        if(usrMapper.getIdByName(data.get("name"))!=null)  return "{\"status\": \"bad\", \"errMsg\": \"用户名已存在\"}";
+         return "{\"status\": \"good\", \"errMsg\": \"用户名可用\"}";
+    }
 
+    @PostMapping("/sign")
+    public boolean sign(@RequestBody Map<String,String> data,HttpServletResponse response){
+        return true;
+    }
+
+    @RequestMapping("/test")
+    public boolean test() {
+        return usrMapper.insertUsr(new Usr("root2","123456","奥特曼"));
+    }
 
 
 }

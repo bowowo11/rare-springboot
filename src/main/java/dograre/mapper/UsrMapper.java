@@ -16,7 +16,12 @@ public interface UsrMapper {
    @SuppressWarnings("AlibabaCommentsMustBeJavadocFormat")
    String getIdByName(String name);
    //通过ID查询用户名
-   Usr getUsrByID(int ID);
+   Usr getUsrByID(String ID);
+
+   boolean insertUsr(Usr newUsr);
+
+
+
 
    //通过ID查昵称
    String getNicknameByID(int ID);
