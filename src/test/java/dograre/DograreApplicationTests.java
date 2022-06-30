@@ -1,4 +1,4 @@
-package dograre.tk;
+package dograre;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
