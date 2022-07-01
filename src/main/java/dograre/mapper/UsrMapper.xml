@@ -44,4 +44,5 @@
         update usr set crystal = #{Crystal} where ID = #{ID}
     </update>
 
+
 </mapper>

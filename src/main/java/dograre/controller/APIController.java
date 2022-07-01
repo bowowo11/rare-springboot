@@ -102,6 +102,11 @@ public class APIController {
         return res;
     }
 
+    @GetMapping("crystal")
+    public int crystal(@CookieValue(name = "session_id") String session){
+        return usrMapper.getCrystalByID(Integer.parseInt(session));
+    }
+
     @RequestMapping("/test")
     public boolean test() {
         return usrMapper.setCard(1, "0001110001");
