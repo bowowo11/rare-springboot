@@ -62,11 +62,11 @@ public class APIController {
     //用于注册时检验用户名是否唯一的api
     @PostMapping("/checkname")
     public String checkname(@RequestBody Map<String, String> data) {
-        if(usrMapper.getIdByName(data.get("username"))!=null) {
+        if (usrMapper.getIdByName(data.get("username")) != null) {
             return "{\"status\": \"bad\", \"errMsg\": \"用户名已存在\"}";
         }
-        if(usrMapper.getIdByNickName(data.get("name"))!=null)  {
-            return"{\"status\": \"bad\", \"errMsg\": \"昵称已存在\"}";
+        if (usrMapper.getIdByNickName(data.get("name")) != null) {
+            return "{\"status\": \"bad\", \"errMsg\": \"昵称已存在\"}";
         }
         return "{\"status\": \"good\", \"errMsg\": \"用户名可用\"}";
     }
@@ -94,21 +94,66 @@ public class APIController {
 
     @GetMapping("/single")
     public Card card(@CookieValue(name = "session_id") String session) {
-        return cardMapper.getCardById(1);
+        int id = Integer.parseInt(session);
+        int cry = usrMapper.getCrystalByID(id);
+        usrMapper.setCrystal(id, cry - 100);
+        String usrCard = usrMapper.getCardlistByID(id);
+        int newCard = createSingle();
+        StringBuilder stringBuilder = new StringBuilder(usrCard);
+        stringBuilder.replace(newCard - 1, newCard, "1");
+        String res = stringBuilder.toString();
+        usrMapper.setCard(id, res);
+        return cardMapper.getCardById(newCard);
+    }
+
+    public int calculatePoint(String cardList) {
+        char[] chars = cardList.toCharArray();
+        int count = 0;
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == '1') {
+                switch (cardMapper.getCardById(i).getRareRank()) {
+                    case 1 -> count += 1;
+                    case 2 -> count += 2;
+                    case 3 -> count += 4;
+                    case 4 -> count += 10;
+                }
+            }
+        }
+        return count;
+    }
+
+    public int createSingle() {
+        int a = (int) (Math.random() * 100);
+        if (a <= 1) return (int) (Math.random() * 5) + 1;
+        if (a <= 5) return (int) (Math.random() * 10) + 6;
+        if (a <= 15) return (int) (Math.random() * 15) + 16;
+        return (int) (Math.random() * 20) + 30;
     }
 
     @GetMapping("/tencards")
     public List<Card> tenCards(@CookieValue(name = "session_id") String session) {
-        usrMapper.setCard(Integer.parseInt(session), "1111111111");
+        int id = Integer.parseInt(session);
+        int cry = usrMapper.getCrystalByID(id);
+        usrMapper.setCrystal(id, cry - 1000);
+        String usrCard = usrMapper.getCardlistByID(id);
+        int[] cardList = new int[10];
+        for (int i = 0; i < 10; i++) {
+            cardList[i] = createSingle();
+        }
+        StringBuilder stringBuilder = new StringBuilder(usrCard);
+        for (int i = 0; i < 10; i++) {
+            stringBuilder.replace(cardList[i] - 1, cardList[i], "1");
+        }
+        usrMapper.setCard(id, stringBuilder.toString());
         List<Card> res = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            res.add(cardMapper.getCardById(i + 1));
+            res.add(cardMapper.getCardById(cardList[i]));
         }
         return res;
     }
 
     @GetMapping("crystal")
-    public int crystal(@CookieValue(name = "session_id") String session){
+    public int crystal(@CookieValue(name = "session_id") String session) {
         return usrMapper.getCrystalByID(Integer.parseInt(session));
     }
 

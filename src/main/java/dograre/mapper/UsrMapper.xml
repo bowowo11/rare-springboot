@@ -11,7 +11,7 @@
     </select>
     
     <select id="getIdByNickName" resultType="string">
-        select ID from usr where nickname = #{nickname}
+        select ID from usr where nickname = #{name}
     </select>
 
     <select id="getUsrByID" resultType="dograre.entity.Usr">

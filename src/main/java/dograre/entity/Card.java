@@ -4,7 +4,7 @@ public class Card {
 
     String id;
     String name;
-    String rareRank;
+    int rareRank;
     String team;
     String description;
 
@@ -32,7 +32,7 @@ public class Card {
         return team;
     }
 
-    public String getRareRank() {
+    public int getRareRank() {
         return rareRank;
     }
 
@@ -40,7 +40,7 @@ public class Card {
         return description;
     }
 
-    public void setRareRank(String rareRank) {
+    public void setRareRank(int rareRank) {
         this.rareRank = rareRank;
     }
 

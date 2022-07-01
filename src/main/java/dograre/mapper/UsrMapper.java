@@ -10,8 +10,9 @@ public interface UsrMapper {
    //通过用户名查询密码
    String findPswByName(String name);
    //通过ID查询用户名
-   @SuppressWarnings("AlibabaCommentsMustBeJavadocFormat")
+
    String getIdByName(String name);
+
    String getIdByNickName(String name);
    //通过ID查询用户名
    Usr getUsrByID(String ID);
