@@ -24,7 +24,7 @@
     </insert>
 
 
-    <select id="getNicknameByID"  resultType="java.lang.String">
+    <select id="getNicknameByID" resultType="java.lang.String">
         select nickname from usr where ID = #{ID}
     </select>
 
@@ -33,7 +33,15 @@
     </select>
 
     <select id="getCardlistByID" resultType="java.lang.String">
-    select cardlist from usr where ID = #{ID}
+        select cardlist from usr where ID = #{ID}
     </select>
+
+    <update id="setCard">
+        update usr set cardlist = #{cards} where ID = #{ID}
+    </update>
+
+    <update id="setCrystal">
+        update usr set crystal = #{Crystal} where ID = #{ID}
+    </update>
 
 </mapper>

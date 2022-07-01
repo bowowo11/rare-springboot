@@ -2,10 +2,7 @@ package dograre.mapper;
 
 import dograre.entity.Usr;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Mapper
 @Repository
@@ -20,17 +17,16 @@ public interface UsrMapper {
 
    boolean insertUsr(Usr newUsr);
 
-
-
-
    //通过ID查昵称
    String getNicknameByID(int ID);
 
    //通过ID查宝石
    int getCrystalByID(int ID);
 
+   boolean setCrystal(int ID,int Crystal);
+
    //通过ID查
    String getCardlistByID(int ID);
 
-
+   boolean setCard(int ID,String cards);
 }
