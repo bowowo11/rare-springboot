@@ -62,11 +62,11 @@ public class APIController {
     //用于注册时检验用户名是否唯一的api
     @PostMapping("/checkname")
     public String checkname(@RequestBody Map<String, String> data) {
-        if (usrMapper.getIdByName(data.get("username")) != null) {
+        if(usrMapper.getIdByName(data.get("username"))!=null) {
             return "{\"status\": \"bad\", \"errMsg\": \"用户名已存在\"}";
         }
-        if (usrMapper.getIdByNickName(data.get("name")) != null) {
-            return "{\"status\": \"bad\", \"errMsg\": \"昵称已存在\"}";
+        if(usrMapper.getIdByNickName(data.get("name"))!=null)  {
+            return"{\"status\": \"bad\", \"errMsg\": \"昵称已存在\"}";
         }
         return "{\"status\": \"good\", \"errMsg\": \"用户名可用\"}";
     }
@@ -153,7 +153,7 @@ public class APIController {
     }
 
     @GetMapping("crystal")
-    public int crystal(@CookieValue(name = "session_id") String session) {
+    public int crystal(@CookieValue(name = "session_id") String session){
         return usrMapper.getCrystalByID(Integer.parseInt(session));
     }
 
