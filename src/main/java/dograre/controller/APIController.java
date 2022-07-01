@@ -87,7 +87,7 @@ public class APIController {
         List<Card> res = new ArrayList<>();
         String cards = usrMapper.getCardlistByID(Integer.parseInt(session));
         for (int i = 0; i < cards.length(); i++) {
-            if (cards.charAt(i) == '0') res.add(cardMapper.getCardById(i + 1));
+            if (cards.charAt(i) == '1') res.add(cardMapper.getCardById(i + 1));
         }
         return res;
     }
