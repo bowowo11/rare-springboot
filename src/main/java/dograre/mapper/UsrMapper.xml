@@ -9,6 +9,10 @@
     <select id="getIdByName" resultType="string">
         select ID from usr where usrname = #{name}
     </select>
+    
+    <select id="getIdByNickName" resultType="string">
+        select ID from usr where nickname = #{nickname}
+    </select>
 
     <select id="getUsrByID" resultType="dograre.entity.Usr">
         select * from usr where ID = #{ID}
