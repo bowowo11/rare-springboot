@@ -9,7 +9,7 @@
     <select id="getIdByName" resultType="string">
         select ID from usr where usrname = #{name}
     </select>
-    
+
     <select id="getIdByNickName" resultType="string">
         select ID from usr where nickname = #{name}
     </select>
@@ -48,5 +48,16 @@
         update usr set crystal = #{Crystal} where ID = #{ID}
     </update>
 
+    <update id="setScore">
+        update usr set  score = #{score} where ID = #{ID}
+    </update>
+
+    <select id="getUsrRank" resultType="dograre.entity.Usr">
+        select * from usr order by score desc limit 5
+    </select>
+
+    <select id="getScore" resultType="int">
+        select score from usr where ID = #{ID}
+    </select>
 
 </mapper>

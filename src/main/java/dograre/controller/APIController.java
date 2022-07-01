@@ -99,28 +99,29 @@ public class APIController {
         usrMapper.setCrystal(id, cry - 100);
         String usrCard = usrMapper.getCardlistByID(id);
         int newCard = createSingle();
-        StringBuilder stringBuilder = new StringBuilder(usrCard);
-        stringBuilder.replace(newCard - 1, newCard, "1");
-        String res = stringBuilder.toString();
-        usrMapper.setCard(id, res);
+        if (usrCard.charAt(newCard) == '1') {
+            switch (cardMapper.getCardById(newCard).getRareRank()) {
+                case 4 -> usrMapper.setScore(id, usrMapper.getScore(id) + 5);
+                case 3 -> usrMapper.setScore(id, usrMapper.getScore(id) + 3);
+                case 2 -> usrMapper.setScore(id, usrMapper.getScore(id) + 2);
+                case 1 -> usrMapper.setScore(id, usrMapper.getScore(id) + 1);
+            }
+        } else {
+            StringBuilder stringBuilder = new StringBuilder(usrCard);
+            stringBuilder.replace(newCard - 1, newCard, "1");
+            String res = stringBuilder.toString();
+            switch (cardMapper.getCardById(newCard).getRareRank()) {
+                case 4 -> usrMapper.setScore(id, usrMapper.getScore(id) + 10);
+                case 3 -> usrMapper.setScore(id, usrMapper.getScore(id) + 4);
+                case 2 -> usrMapper.setScore(id, usrMapper.getScore(id) + 2);
+                case 1 -> usrMapper.setScore(id, usrMapper.getScore(id) + 1);
+            }
+            usrMapper.setCard(id, res);
+        }
+
         return cardMapper.getCardById(newCard);
     }
 
-    public int calculatePoint(String cardList) {
-        char[] chars = cardList.toCharArray();
-        int count = 0;
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == '1') {
-                switch (cardMapper.getCardById(i).getRareRank()) {
-                    case 1 -> count += 1;
-                    case 2 -> count += 2;
-                    case 3 -> count += 4;
-                    case 4 -> count += 10;
-                }
-            }
-        }
-        return count;
-    }
 
     public int createSingle() {
         int a = (int) (Math.random() * 100);
@@ -142,9 +143,25 @@ public class APIController {
         }
         StringBuilder stringBuilder = new StringBuilder(usrCard);
         for (int i = 0; i < 10; i++) {
+            if (usrCard.charAt(cardList[i]) == '1') {
+                switch (cardMapper.getCardById(cardList[i]).getRareRank()) {
+                    case 4 -> usrMapper.setScore(id, usrMapper.getScore(id) + 5);
+                    case 3 -> usrMapper.setScore(id, usrMapper.getScore(id) + 3);
+                    case 2 -> usrMapper.setScore(id, usrMapper.getScore(id) + 2);
+                    case 1 -> usrMapper.setScore(id, usrMapper.getScore(id) + 1);
+                }
+            } else {
+                switch (cardMapper.getCardById(cardList[i]).getRareRank()) {
+                    case 4 -> usrMapper.setScore(id, usrMapper.getScore(id) + 10);
+                    case 3 -> usrMapper.setScore(id, usrMapper.getScore(id) + 4);
+                    case 2 -> usrMapper.setScore(id, usrMapper.getScore(id) + 2);
+                    case 1 -> usrMapper.setScore(id, usrMapper.getScore(id) + 1);
+                }
+            }
             stringBuilder.replace(cardList[i] - 1, cardList[i], "1");
         }
-        usrMapper.setCard(id, stringBuilder.toString());
+        String str = stringBuilder.toString();
+        usrMapper.setCard(id, str);
         List<Card> res = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             res.add(cardMapper.getCardById(cardList[i]));
@@ -167,9 +184,14 @@ public class APIController {
         }
     }
 
+    @GetMapping
+    public List<Usr> usrRank() {
+        return usrMapper.getUsrRank();
+    }
+
     @RequestMapping("/test")
-    public boolean test() {
-        return usrMapper.setCard(1, "0001110001");
+    public List<Usr> test() {
+        return usrRank();
     }
 
 

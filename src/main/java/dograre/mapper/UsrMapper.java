@@ -4,31 +4,40 @@ import dograre.entity.Usr;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 @Repository
 public interface UsrMapper {
-   //通过用户名查询密码
-   String findPswByName(String name);
-   //通过ID查询用户名
+    //通过用户名查询密码
+    String findPswByName(String name);
+    //通过ID查询用户名
 
-   String getIdByName(String name);
+    String getIdByName(String name);
 
-   String getIdByNickName(String name);
-   //通过ID查询用户名
-   Usr getUsrByID(String ID);
+    String getIdByNickName(String name);
 
-   boolean insertUsr(Usr newUsr);
+    //通过ID查询用户名
+    Usr getUsrByID(String ID);
 
-   //通过ID查昵称
-   String getNicknameByID(int ID);
+    boolean insertUsr(Usr newUsr);
 
-   //通过ID查宝石
-   int getCrystalByID(int ID);
+    //通过ID查昵称
+    String getNicknameByID(int ID);
 
-   boolean setCrystal(int ID,int Crystal);
+    //通过ID查宝石
+    int getCrystalByID(int ID);
 
-   //通过ID查
-   String getCardlistByID(int ID);
+    boolean setCrystal(int ID, int Crystal);
 
-   boolean setCard(int ID,String cards);
+    //通过ID查
+    String getCardlistByID(int ID);
+
+    boolean setCard(int ID, String cards);
+
+    boolean setScore(int ID, int score);
+
+    List<Usr> getUsrRank();
+
+    int getScore(int ID);
 }

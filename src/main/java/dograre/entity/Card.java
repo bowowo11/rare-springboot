@@ -8,6 +8,7 @@ public class Card {
     String team;
     String description;
 
+
     public void setName(String name) {
         this.name = name;
     }

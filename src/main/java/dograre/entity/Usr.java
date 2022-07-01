@@ -7,11 +7,21 @@ public class Usr {
     private int crystal;
     private String nickname;
     private String cardlist;
+    private int score;
+
 
     public Usr(String usrname, String pwd, String nickname) {
         this.usrname = usrname;
         this.pwd = pwd;
         this.nickname = nickname;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public int getID() {
