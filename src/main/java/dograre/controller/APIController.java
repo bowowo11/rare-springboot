@@ -97,7 +97,7 @@ public class APIController {
         int id = Integer.parseInt(session);
         int cry = usrMapper.getCrystalByID(id);
         usrMapper.setCrystal(id, cry - 100);
-        String usrCard = usrMapper.getCardlistByID(id);
+        String usrCard = usrMapper.getCardlistByID(id + 1);
         int newCard = createSingle();
         if (usrCard.charAt(newCard) == '1') {
             switch (cardMapper.getCardById(newCard).getRareRank()) {
@@ -124,11 +124,10 @@ public class APIController {
 
 
     public int createSingle() {
-        int a = (int) (Math.random() * 100);
-        if (a <= 1) return (int) (Math.random() * 5) + 1;
-        if (a <= 5) return (int) (Math.random() * 10) + 6;
-        if (a <= 15) return (int) (Math.random() * 15) + 16;
-        return (int) (Math.random() * 20) + 30;
+        double a = Math.random() * 100;
+        if (a < 1) return (int) (Math.random() * 5) + 45;
+        if (a < 5) return (int) (Math.random() * 15) + 30;
+        return (int) (Math.random() * 30);
     }
 
     @GetMapping("/tencards")
