@@ -68,7 +68,7 @@ public class APIController {
         if (usrMapper.getIdByNickName(data.get("name")) != null) {
             return "{\"status\": \"bad\", \"errMsg\": \"昵称已存在\"}";
         }
-        return "{\"status\": \"good\", \"errMsg\": \"用户名可用\"}";
+        return "{\"status\": \"good\", \"Msg\": \"用户名可用\"}";
     }
 
     //注册请求的api
@@ -97,8 +97,8 @@ public class APIController {
         int id = Integer.parseInt(session);
         int cry = usrMapper.getCrystalByID(id);
         usrMapper.setCrystal(id, cry - 100);
-        String usrCard = usrMapper.getCardlistByID(id + 1);
-        int newCard = createSingle();
+        String usrCard = usrMapper.getCardlistByID(id);
+        int newCard = createSingle()+1;
         if (usrCard.charAt(newCard) == '1') {
             switch (cardMapper.getCardById(newCard).getRareRank()) {
                 case 4 -> usrMapper.setScore(id, usrMapper.getScore(id) + 5);
