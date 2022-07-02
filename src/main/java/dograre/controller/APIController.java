@@ -126,7 +126,7 @@ public class APIController {
     public int createSingle() {
         double a = Math.random() * 100;
         if (a < 1) return (int) (Math.random() * 5) + 45;
-        if (a < 5) return (int) (Math.random() * 15) + 30;
+        if (a < 10) return (int) (Math.random() * 15) + 30;
         return (int) (Math.random() * 30);
     }
 
