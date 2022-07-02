@@ -138,7 +138,7 @@ public class APIController {
         String usrCard = usrMapper.getCardlistByID(id);
         int[] cardList = new int[10];
         for (int i = 0; i < 10; i++) {
-            cardList[i] = createSingle();
+            cardList[i] = createSingle()+1;
         }
         StringBuilder stringBuilder = new StringBuilder(usrCard);
         for (int i = 0; i < 10; i++) {
