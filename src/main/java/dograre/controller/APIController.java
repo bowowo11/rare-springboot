@@ -184,7 +184,7 @@ public class APIController {
         }
     }
 
-    @GetMapping
+    @GetMapping("/usrRank")
     public List<Usr> usrRank() {
         return usrMapper.getUsrRank();
     }
